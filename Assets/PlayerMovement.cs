@@ -1,3 +1,4 @@
+using Assets.Scripts.Providers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,14 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
 
     private Vector2 moveDirection;
+
+    void Start()
+    {
+        
+        BasicSkinProvider a = new BasicSkinProvider();
+        a.GetSkin("asd");
+    }
+
 
     // Update is called once per frame
     void Update()
