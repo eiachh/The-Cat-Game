@@ -41,6 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ground
+    uniqueID: 1480106757
+    locked: 0
+  - name: Misc
+    uniqueID: 2758322257
+    locked: 0
   - name: Player
     uniqueID: 4116243747
+    locked: 0
+  - name: Effect
+    uniqueID: 465784431
+    locked: 0
+  - name: Important
+    uniqueID: 2291738449
     locked: 0

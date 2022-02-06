@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 2de04f03f615f554ea31a5a987b74c6a
+guid: 10d48f0e7366b744abeb58a07348e15a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8466219424346270451
-    second: Spotty_sus_right_0
+      213: 5000415503149108636
+    second: SpottySusFront_0
   - first:
-      213: -2552344630737717659
-    second: Spotty_sus_right_1
+      213: -3198809984033997016
+    second: SpottySusFront_1
   - first:
-      213: 5310936541989351242
-    second: Spotty_sus_right_2
+      213: 8919297885088556791
+    second: SpottySusFront_2
   - first:
-      213: -4907260696052897979
-    second: Spotty_sus_right_3
+      213: 5481424533171674429
+    second: SpottySusFront_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -58,7 +58,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -77,7 +77,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -89,7 +89,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -103,7 +103,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Spotty_sus_right_0
+      name: SpottySusFront_0
       rect:
         serializedVersion: 2
         x: 0
@@ -117,14 +117,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3faeba2e5bd0e7570800000000000000
-      internalID: 8466219424346270451
+      spriteID: c9d0f82286b056540800000000000000
+      internalID: 5000415503149108636
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spotty_sus_right_1
+      name: SpottySusFront_1
       rect:
         serializedVersion: 2
         x: 32
@@ -138,14 +138,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 566b08cc410449cd0800000000000000
-      internalID: -2552344630737717659
+      spriteID: 82f3ead744b8b93d0800000000000000
+      internalID: -3198809984033997016
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spotty_sus_right_2
+      name: SpottySusFront_2
       rect:
         serializedVersion: 2
         x: 64
@@ -159,14 +159,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a4faae975ac34b940800000000000000
-      internalID: 5310936541989351242
+      spriteID: 7f6a8968b26b7cb70800000000000000
+      internalID: 8919297885088556791
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spotty_sus_right_3
+      name: SpottySusFront_3
       rect:
         serializedVersion: 2
         x: 96
@@ -180,8 +180,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 547e78f8568e5ebb0800000000000000
-      internalID: -4907260696052897979
+      spriteID: d3d1fc2329ee11c40800000000000000
+      internalID: 5481424533171674429
       vertices: []
       indices: 
       edges: []
