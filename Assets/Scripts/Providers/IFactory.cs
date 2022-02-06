@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEditor.Animations;
 using UnityEngine;
+using Assets.Scripts.Characters;
 
 namespace Assets.Scripts.Providers
 {
@@ -28,5 +29,14 @@ namespace Assets.Scripts.Providers
         /// <param name="animatorController">The animator controller of the skin.</param>
         /// <returns>An ISkin.</returns>
         ISkin CreateSkin(Sprite defaultSprite, AnimatorController animatorController);
+
+        ICrewMember CreateCrewMember(CharacterConfiguration configuration, string skinName);
+
+        /// <summary>
+        /// Returns a movement animator adapter for the given adapter type.
+        /// </summary>
+        /// <param name="animator"></param>
+        /// <returns></returns>
+        IMovementAnimatorAdapter CreateMovementAnimatorAdapter(Animator animator, AnimatorAdapterType animatorAdapterType);
     }
 }

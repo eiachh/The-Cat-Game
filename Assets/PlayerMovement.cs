@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts;
 using Assets.Scripts.Visuals;
+using Assets.Scripts.Characters;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,18 +13,12 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 moveDirection;
 
-    public GameObject skinnableTarget;
-    public GameObject skinnableTarget2;
 
+    ICrewMember crewMember1;
     void Start()
     {
-        var skin = Factory.Instance.SkinProvider.GetSkin("SpottySus");
-        skin.ApplySkin(skinnableTarget);
-        skin.ApplySkin(skinnableTarget2);
-
-
-        skin.SetRenderLayer(skinnableTarget, RenderLayerCollection.Effect);
-        skin.SetRenderLayer(skinnableTarget2, RenderLayerCollection.Important);
+        crewMember1 = Factory.Instance.CreateCrewMember(new CharacterConfiguration { Name = "TestCrewMember" }, "SpottySus");
+        
     }
 
 
@@ -36,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+
     }
 
     void ProcessInputs()
@@ -46,18 +42,22 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = new Vector2(moveX, moveY).normalized;
 
 
-        if (Input.GetKey(KeyCode.T))
+        if (Input.GetKey(KeyCode.I))
         {
-            var animator = skinnableTarget.GetComponent<Animator>();
-            animator.SetInteger("Horizontal", -1);
-            animator.SetInteger("Vertical", 0);
+            crewMember1.MoveUp();
         }
 
-        if (Input.GetKey(KeyCode.R))
+        else if (Input.GetKey(KeyCode.J))
         {
-            var animator = skinnableTarget2.GetComponent<Animator>();
-            animator.SetInteger("Horizontal", 0);
-            animator.SetInteger("Vertical", 1);
+            crewMember1.MoveLeft();
+        }
+        else if (Input.GetKey(KeyCode.K))
+        {
+            crewMember1.MoveDown();
+        }
+        else if (Input.GetKey(KeyCode.L))
+        {
+            crewMember1.MoveRight();
         }
 
     }

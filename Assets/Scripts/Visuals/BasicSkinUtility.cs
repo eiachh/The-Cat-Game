@@ -41,7 +41,7 @@ namespace Assets.Scripts.Visuals
         private void ApplyDefaultSkin(GameObject target)
         {
             var spriteRenderer = target.GetComponent<SpriteRenderer>();
-            if(spriteRenderer == null)
+            if (spriteRenderer == null)
             {
                 spriteRenderer = target.gameObject.AddComponent(typeof(SpriteRenderer)) as SpriteRenderer;
             }
@@ -51,6 +51,11 @@ namespace Assets.Scripts.Visuals
 
         private void ApplyAnimatorController(GameObject target)
         {
+            if (animatorOverrideController.runtimeAnimatorController == null)
+            {
+                return;
+            }
+
             var animator = target.GetComponent<Animator>();
             if (animator == null)
             {
