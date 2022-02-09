@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using UnityEditor.Animations;
 using UnityEngine;
 using Assets.Scripts.Characters;
+using Assets.Scripts.Map;
+using UnityEngine.UIElements;
 
 namespace Assets.Scripts.Providers
 {
@@ -15,12 +17,12 @@ namespace Assets.Scripts.Providers
         /// <summary>
         /// Gets a logger object.
         /// </summary>
-        public ILogger Logger { get; }
+        ILogger Logger { get; }
 
         /// <summary>
         /// Gets the skin provider.
         /// </summary>
-        public ISkinProvider SkinProvider { get; }
+        ISkinProvider SkinProvider { get; }
 
         /// <summary>
         /// Create an ISkin.
@@ -33,10 +35,38 @@ namespace Assets.Scripts.Providers
         ICrewMember CreateCrewMember(CharacterConfiguration configuration, string skinName);
 
         /// <summary>
+        /// Creates a random crew member.
+        /// </summary>
+        /// <returns></returns>
+        ICrewMember CreateRandomCrewMember();
+        /// <summary>
         /// Returns a movement animator adapter for the given adapter type.
         /// </summary>
         /// <param name="animator"></param>
         /// <returns></returns>
         IMovementAnimatorAdapter CreateMovementAnimatorAdapter(Animator animator, AnimatorAdapterType animatorAdapterType);
+
+        /// <summary>
+        /// Creates a movement handler for an object that has a <see cref="Rigidbody2D"/> and a <see cref="IMovementAnimatorAdapter"/>
+        /// </summary>
+        /// <param name="gameObject">The game object to move.</param>
+        /// <param name="movementAnimatorAdapter">The animator adapter for movement animation.</param>
+        /// <returns>The movement handler.</returns>
+        IMovementHandler CreateMovementHandler(GameObject gameObject, IMovementAnimatorAdapter movementAnimatorAdapter);
+
+        /// <summary>
+        /// Creates an <see cref="IMapPosition"/> with the proper representation.
+        /// </summary>
+        /// <param name="x">The x coord of the map position.</param>
+        /// <param name="y">The y coord of the map position.</param>
+        /// <returns>A map position.</returns>
+        IMapPosition CreateMapPosition(float x, float y);
+
+        /// <summary>
+        /// Creates an <see cref="IMapPosition"/> with the proper representation.
+        /// </summary>
+        /// <param name="transform">The corresponding transform.</param>
+        /// <returns>A map position.</returns>
+        IMapPosition CreateMapPosition(Transform transform);
     }
 }

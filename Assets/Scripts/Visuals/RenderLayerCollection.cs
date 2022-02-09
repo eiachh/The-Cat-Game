@@ -13,6 +13,7 @@ namespace Assets.Scripts.Visuals
         Misc,
         Player,
         Effect,
+        Menu,
         Important
     }
 }

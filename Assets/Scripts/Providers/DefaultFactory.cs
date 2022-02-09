@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Characters;
+using Assets.Scripts.Map;
 using Assets.Scripts.Visuals;
 using System;
 using System.Collections.Generic;
@@ -47,21 +48,10 @@ namespace Assets.Scripts.Providers
         {
             GameObject crewMemberGameObject = new GameObject(configuration.Name);
 
-            var selectedSkin = skinProvider.GetSkin(skinName);
-            selectedSkin.ApplySkin(crewMemberGameObject);
-            selectedSkin.SetRenderLayer(crewMemberGameObject, RenderLayerCollection.Player);
+            ISkin selectedSkin = ApplySkin(skinName, crewMemberGameObject);
+            IMovementHandler movementHandler = CreateMovementHandler(crewMemberGameObject);
 
-            var crewMemberAnimator = crewMemberGameObject.GetComponent<Animator>();
-            if(crewMemberAnimator == null)
-            {
-                crewMemberAnimator = crewMemberGameObject.AddComponent<Animator>();
-            }
-
-            var animatorAdapter = CreateMovementAnimatorAdapter(crewMemberAnimator, AnimatorAdapterType.CrewMovementAnimator);
-
-            CrewMember newMember = new CrewMember(animatorAdapter, selectedSkin,configuration);
-
-            return newMember;
+            return new CrewMember(movementHandler, selectedSkin, configuration);
         }
 
         /// <summary>
@@ -76,5 +66,65 @@ namespace Assets.Scripts.Providers
                 AnimatorAdapterType.CrewMovementAnimator => new CrewMovementAnimatorAdapter(animator),
                 _ => null,
             };
+        
+        public IMovementHandler CreateMovementHandler(GameObject gameObject, IMovementAnimatorAdapter movementAnimatorAdapter)
+        {
+            var movementHandler = gameObject.AddComponent<BasicMovementHandler>();
+            movementHandler.SetMovementAnimatorAdapter(movementAnimatorAdapter);
+
+            return movementHandler;
+        }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns></returns>
+        public ICrewMember CreateRandomCrewMember()
+        {
+            var skinNameList = skinProvider.GetSkinNames();
+            var skinAmount = skinNameList.Count();
+            var selectedSkinNum = UnityEngine.Random.Range(0, skinAmount);
+            var selectedName = skinNameList[selectedSkinNum];
+
+            selectedName = "SpottySus";
+
+
+
+            CharacterConfiguration charConfiguration = new CharacterConfiguration();
+            charConfiguration.Name = "CreateRandomCrewMember";
+            return CreateCrewMember(charConfiguration, selectedName);
+        }
+
+
+        private IMovementHandler CreateMovementHandler(GameObject crewMemberGameObject)
+        {
+            var crewMemberAnimator = crewMemberGameObject.GetComponent<Animator>();
+            if (crewMemberAnimator == null)
+            {
+                crewMemberAnimator = crewMemberGameObject.AddComponent<Animator>();
+            }
+
+            var animatorAdapter = CreateMovementAnimatorAdapter(crewMemberAnimator, AnimatorAdapterType.CrewMovementAnimator);
+            var movementHandler = CreateMovementHandler(crewMemberGameObject, animatorAdapter);
+            return movementHandler;
+        }
+
+        private ISkin ApplySkin(string skinName, GameObject crewMemberGameObject)
+        {
+            var selectedSkin = skinProvider.GetSkin(skinName);
+            selectedSkin.ApplySkin(crewMemberGameObject);
+            selectedSkin.SetRenderLayer(crewMemberGameObject, RenderLayerCollection.Player);
+            return selectedSkin;
+        }
+
+        public IMapPosition CreateMapPosition(float x, float y)
+        {
+            return new TheoreticalMapPosition(x, y);
+        }
+
+        public IMapPosition CreateMapPosition(Transform transform)
+        {
+            return new TransformBasedMapPosition(transform);
+        }
     }
 }

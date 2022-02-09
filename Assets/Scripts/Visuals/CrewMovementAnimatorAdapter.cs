@@ -40,20 +40,13 @@ namespace Assets.Scripts.Visuals
             animator.SetInteger("Vertical", -1);
         }
 
-        public void ApplyAnimator(GameObject target)
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        public void Idle()
         {
-            //if (animatorOverrideController.runtimeAnimatorController == null)
-            //{
-            //    return;
-            //}
-
-            //var animator = target.GetComponent<Animator>();
-            //if (animator == null)
-            //{
-            //    animator = target.gameObject.AddComponent(typeof(Animator)) as Animator;
-            //}
-
-            //animator.runtimeAnimatorController = animatorOverrideController;
+            animator.SetInteger("Horizontal", 0);
+            animator.SetInteger("Vertical", 0);
         }
     }
 }

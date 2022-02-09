@@ -11,43 +11,28 @@ namespace Assets.Scripts.Characters
 {
     class CrewMember : ICrewMember
     {
-        private IMovementProvider movementProvider;
-        private IMovementAnimatorAdapter movementAdapter;
+        private IMovementHandler movementHandler;
         private CharacterConfiguration characterConfiguration;
 
-        private Rigidbody2D rigidBody2D;
 
-        public IMovementAnimatorAdapter MovementAdapter => movementAdapter;
         public ISkin Skin { get; set; }
         public CharacterConfiguration CharacterConfiguration => characterConfiguration;
 
-        public CrewMember(IMovementAnimatorAdapter movementAdapter, ISkin skin, CharacterConfiguration configuration)
+        public CrewMember(IMovementHandler movementHandler, ISkin skin, CharacterConfiguration configuration)
         {
-            this.movementAdapter = movementAdapter;
+            this.movementHandler = movementHandler;
             this.characterConfiguration = configuration;
             this.Skin = skin;
-
-            //rigidBody2D = this.gameObject
         }
 
-        public void MoveLeft()
+        public void MoveHorizontal(int toMapX)
         {
-            MovementAdapter.MoveLeft();
+            movementHandler.MoveHorizontal(toMapX);
         }
 
-        public void MoveRight()
+        public void MoveVertical(int toMapY)
         {
-            MovementAdapter.MoveRight();
-        }
-
-        public void MoveUp()
-        {
-            MovementAdapter.MoveUp();
-        }
-
-        public void MoveDown()
-        {
-            MovementAdapter.MoveDown();
+            movementHandler.MoveVertical(toMapY);
         }
     }
 }

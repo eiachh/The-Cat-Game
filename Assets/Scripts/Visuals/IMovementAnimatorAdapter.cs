@@ -38,5 +38,10 @@ namespace Assets.Scripts.Visuals
         /// Play Down movement animation.
         /// </summary>
         void MoveDown();
+
+        /// <summary>
+        /// Play idle animation.
+        /// </summary>
+        void Idle();
     }
 }

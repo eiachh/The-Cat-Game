@@ -19,6 +19,6 @@ namespace Assets.Scripts.Providers
         /// Returns an collection with all the existing skin names.
         /// </summary>
         /// <returns>Returns the names.</returns>
-        IEnumerable<string> GetSkinNames();
+        IList<string> GetSkinNames();
     }
 }

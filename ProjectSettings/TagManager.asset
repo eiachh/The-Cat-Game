@@ -53,6 +53,9 @@ TagManager:
   - name: Effect
     uniqueID: 465784431
     locked: 0
+  - name: Menu
+    uniqueID: 2399434657
+    locked: 0
   - name: Important
     uniqueID: 2291738449
     locked: 0

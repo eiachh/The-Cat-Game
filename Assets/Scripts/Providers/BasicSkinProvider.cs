@@ -30,8 +30,9 @@ namespace Assets.Scripts.Providers
         private Dictionary<string, ISkin> skinDictionary = new Dictionary<string, ISkin>();
         
 
-        public IEnumerable<string> GetSkinNames()
+        public IList<string> GetSkinNames()
         {
+            LoadSkins();
             return SkinNames.ToList();
         }
         /// <summary>

@@ -5,6 +5,7 @@ using UnityEngine;
 using Assets.Scripts;
 using Assets.Scripts.Visuals;
 using Assets.Scripts.Characters;
+using Assets.Scripts.Map;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,11 +14,20 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 moveDirection;
 
+    public int speed = 1;
+    //float BaseConstant = 0.001f;
 
     ICrewMember crewMember1;
     void Start()
     {
-        crewMember1 = Factory.Instance.CreateCrewMember(new CharacterConfiguration { Name = "TestCrewMember" }, "SpottySus");
+        SpawnableArea testArea = new SpawnableArea(Factory.Instance.CreateMapPosition(-1,1), Factory.Instance.CreateMapPosition(1, -1));
+        testArea.GetRandomSpawnableLocation();
+
+        //BasicMovementHandler aasdsad = new BasicMovementHandler();
+        //GameObject tester = new GameObject("PlayerMovement_testerName");
+        //tester.AddComponent<BasicMovementHandler>();
+        crewMember1 = Factory.Instance.CreateRandomCrewMember();
+        //crewMember1 = Factory.Instance.CreateCrewMember(new CharacterConfiguration { Name = "TestCrewMember" }, "SpottySus");
         
     }
 
@@ -26,12 +36,13 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         ProcessInputs();
+        //transform.Translate(new Vector3(BaseConstant * Time.deltaTime * speed,0,0));
     }
 
     private void FixedUpdate()
     {
         Move();
-
+        //transform.Translate(new Vector3(1 * Time.deltaTime * speed, 0, 0));
     }
 
     void ProcessInputs()
@@ -44,20 +55,20 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.I))
         {
-            crewMember1.MoveUp();
+            crewMember1.MoveVertical(5);
         }
 
         else if (Input.GetKey(KeyCode.J))
         {
-            crewMember1.MoveLeft();
+            crewMember1.MoveHorizontal(-5);
         }
         else if (Input.GetKey(KeyCode.K))
         {
-            crewMember1.MoveDown();
+            crewMember1.MoveVertical(-5);
         }
         else if (Input.GetKey(KeyCode.L))
         {
-            crewMember1.MoveRight();
+            crewMember1.MoveHorizontal(5);
         }
 
     }
