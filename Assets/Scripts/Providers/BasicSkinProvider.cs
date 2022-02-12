@@ -21,6 +21,7 @@ namespace Assets.Scripts.Providers
 
         private static string notFoundSpriteName = "NotFound";
         private static string defaultSkinTextPrefix = "DefaultSprite";
+        private static string portraitTextPrefix = "Portrait";
 
         private static Sprite notFoundSprite;
 
@@ -61,25 +62,61 @@ namespace Assets.Scripts.Providers
             }
 
             IsSkinsLoaded = true;
-
-            var notFoundSpritePath = GetResourceLoadFormat(CharactersFolderPath + "/" + notFoundSpriteName);
-            notFoundSprite = Resources.Load<Sprite>(notFoundSpritePath);
+            LoadNotFoundSprite();
 
             DirectoryInfo dirInfo = new DirectoryInfo(CharacterSkinsFolderPath);
             foreach (var dir in dirInfo.GetDirectories())
             {
-                var defaultSkin = GetDefaultSkin(dir);
-                var animatorController = GetAnimatorController(dir);
-
-                if(animatorController == null)
-                {
-                    Factory.Instance.Logger.Log(LogType.Warning, $"The animator for character: {dir.Name} was null.");
-                }
-
-                var skin = Factory.Instance.CreateSkin(defaultSkin, animatorController);
-                skinDictionary.Add(dir.Name, skin);
-                SkinNames.Add(dir.Name);
+                LoadSkin(dir);
             }
+        }
+
+        /// <summary>
+        /// Loads the skin from the current folder.
+        /// </summary>
+        /// <param name="dir"></param>
+        private void LoadSkin(DirectoryInfo dir)
+        {
+            var defaultSkin = GetDefaultSkin(dir);
+            var portrait = GetPortrait(dir);
+            var animatorController = GetAnimatorController(dir);
+
+            if (animatorController == null)
+            {
+                Factory.Instance.Logger.Log(LogType.Warning, $"The animator for character: {dir.Name} was null.");
+            }
+
+            var skin = Factory.Instance.CreateSkin(defaultSkin, portrait, animatorController);
+            skinDictionary.Add(dir.Name, skin);
+            SkinNames.Add(dir.Name);
+        }
+
+        /// <summary>
+        /// Returs the portrait sprite from the given folder.
+        /// </summary>
+        /// <param name="dir">Folder with the portrait.</param>
+        /// <returns>The portrait as a <see cref="Sprite"/></returns>
+        private Sprite GetPortrait(DirectoryInfo dir)
+        {
+            foreach (var fileInfo in dir.GetFiles())
+            {
+                if (fileInfo.Name.StartsWith(portraitTextPrefix))
+                {
+                    var loadPath = GetResourceLoadFormat(CharacterSkinsFolderPath + "/" + dir.Name + "/" + Path.GetFileNameWithoutExtension(fileInfo.Name));
+                    var retValue = Resources.Load<Sprite>(loadPath);
+                    if (retValue == null)
+                        Factory.Instance.Logger.Log(LogType.Warning, $"Failed to load resource: {loadPath}");
+
+                    return retValue;
+                }
+            }
+            return notFoundSprite;
+        }
+
+        private static void LoadNotFoundSprite()
+        {
+            var notFoundSpritePath = GetResourceLoadFormat(CharactersFolderPath + "/" + notFoundSpriteName);
+            notFoundSprite = Resources.Load<Sprite>(notFoundSpritePath);
         }
 
         /// <summary>
@@ -121,9 +158,7 @@ namespace Assets.Scripts.Providers
                     var loadPath = GetResourceLoadFormat(CharacterSkinsFolderPath + "/" + dir.Name + "/" + Path.GetFileNameWithoutExtension(fileInfo.Name));
                     var retValue = Resources.Load<Sprite>(loadPath);
                     if (retValue == null)
-                    {
                         Factory.Instance.Logger.Log(LogType.Warning, $"Failed to load resource: {loadPath}");
-                    }
 
                     return retValue;
                 }

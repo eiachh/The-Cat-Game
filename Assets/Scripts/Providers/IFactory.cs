@@ -30,7 +30,7 @@ namespace Assets.Scripts.Providers
         /// <param name="defaultSprite">The default sprite of the skin.</param>
         /// <param name="animatorController">The animator controller of the skin.</param>
         /// <returns>An ISkin.</returns>
-        ISkin CreateSkin(Sprite defaultSprite, AnimatorController animatorController);
+        ISkin CreateSkin(Sprite defaultSprite, Sprite portrait, AnimatorController animatorController);
 
         ICrewMember CreateCrewMember(CharacterConfiguration configuration, string skinName);
 

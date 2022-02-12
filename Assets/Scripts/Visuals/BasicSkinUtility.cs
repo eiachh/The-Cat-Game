@@ -11,11 +11,13 @@ namespace Assets.Scripts.Visuals
     class BasicSkinUtility : ISkin
     {
         private Sprite defaultSprite;
+        private Sprite portrait;
         private AnimatorOverrideController animatorOverrideController;
-        public BasicSkinUtility(Sprite defaultSprite, AnimatorController animatorController)
+        public BasicSkinUtility(Sprite defaultSprite, Sprite portrait, AnimatorController animatorController)
         {
             this.defaultSprite = defaultSprite;
             this.animatorOverrideController = new AnimatorOverrideController(animatorController);
+            this.portrait = portrait;
         }
 
         /// <summary>
@@ -26,6 +28,11 @@ namespace Assets.Scripts.Visuals
         {
             ApplyDefaultSkin(target);
             ApplyAnimatorController(target);
+        }
+
+        public Sprite GetPortrait()
+        {
+            return portrait;
         }
 
         public void Dispose()

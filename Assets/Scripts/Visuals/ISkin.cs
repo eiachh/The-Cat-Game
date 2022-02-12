@@ -25,5 +25,11 @@ namespace Assets.Scripts.Visuals
         /// <param name="target">The target object.</param>
         /// <param name="desiredLayer">The desired layer.</param>
         void SetRenderLayer(GameObject target, RenderLayerCollection desiredLayer);
+
+        /// <summary>
+        /// Gets the portrait of the character.
+        /// </summary>
+        /// <returns>The portrait as a sprite.</returns>
+        Sprite GetPortrait();
     }
 }

@@ -39,9 +39,9 @@ namespace Assets.Scripts.Providers
         /// <param name="defaultSprite"><inheritdoc/></param>
         /// <param name="animatorController"><inheritdoc/></param>
         /// <returns><inheritdoc/></returns>
-        public ISkin CreateSkin(Sprite defaultSprite, AnimatorController animatorController)
+        public ISkin CreateSkin(Sprite defaultSprite, Sprite portrait, AnimatorController animatorController)
         {
-            return new BasicSkinUtility(defaultSprite, animatorController);
+            return new BasicSkinUtility(defaultSprite, portrait, animatorController);
         }
 
         public ICrewMember CreateCrewMember(CharacterConfiguration configuration, string skinName)
@@ -85,10 +85,6 @@ namespace Assets.Scripts.Providers
             var skinAmount = skinNameList.Count();
             var selectedSkinNum = UnityEngine.Random.Range(0, skinAmount);
             var selectedName = skinNameList[selectedSkinNum];
-
-            selectedName = "SpottySus";
-
-
 
             CharacterConfiguration charConfiguration = new CharacterConfiguration();
             charConfiguration.Name = "CreateRandomCrewMember";
