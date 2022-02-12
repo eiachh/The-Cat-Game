@@ -11,18 +11,19 @@ namespace Assets.Scripts.Characters
 {
     class CrewMember : ICrewMember
     {
-        private IMovementHandler movementHandler;
-        private CharacterConfiguration characterConfiguration;
-
-
         public ISkin Skin { get; set; }
         public CharacterConfiguration CharacterConfiguration => characterConfiguration;
 
-        public CrewMember(IMovementHandler movementHandler, ISkin skin, CharacterConfiguration configuration)
+        private IMovementHandler movementHandler;
+        private CharacterConfiguration characterConfiguration;
+        private GameObject selfGameObject;
+
+        public CrewMember(GameObject selfGameObject, IMovementHandler movementHandler, ISkin skin, CharacterConfiguration configuration)
         {
             this.movementHandler = movementHandler;
             this.characterConfiguration = configuration;
             this.Skin = skin;
+            this.selfGameObject = selfGameObject;
         }
 
         public void MoveHorizontal(int toMapX)
@@ -33,6 +34,11 @@ namespace Assets.Scripts.Characters
         public void MoveVertical(int toMapY)
         {
             movementHandler.MoveVertical(toMapY);
+        }
+
+        public void Dispose()
+        {
+            UnityEngine.Object.DestroyImmediate(selfGameObject);
         }
     }
 }

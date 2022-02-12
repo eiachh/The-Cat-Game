@@ -4,6 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum SelectedCrewMember
+{
+    CrewMember1,
+    CrewMember2,
+    CrewMember3
+}
 public class CrewCreationMenu : MonoBehaviour
 {
     public GameObject MainMenu;
@@ -13,6 +19,8 @@ public class CrewCreationMenu : MonoBehaviour
     private ICrewMember CrewMember1;
     private ICrewMember CrewMember2;
     private ICrewMember CrewMember3;
+
+    private SelectedCrewMember selectedCrewMember = SelectedCrewMember.CrewMember1;
 
     private CrewLineupMenu CrewLineupMenu;
     /// <summary>
@@ -29,7 +37,24 @@ public class CrewCreationMenu : MonoBehaviour
     /// </summary>
     public void RerollSelectedMember()
     {
-
+        if(selectedCrewMember == SelectedCrewMember.CrewMember1)
+        {
+            CrewMember1.Dispose();
+            CrewMember1 = Factory.Instance.CreateRandomCrewMember();
+            CrewLineupMenu.SetCMPortrait1(CrewMember1.Skin.GetPortrait());
+        }
+        else if (selectedCrewMember == SelectedCrewMember.CrewMember2)
+        {
+            CrewMember2.Dispose();
+            CrewMember2 = Factory.Instance.CreateRandomCrewMember();
+            CrewLineupMenu.SetCMPortrait2(CrewMember2.Skin.GetPortrait());
+        }
+        if (selectedCrewMember == SelectedCrewMember.CrewMember3)
+        {
+            CrewMember3.Dispose();
+            CrewMember3 = Factory.Instance.CreateRandomCrewMember();
+            CrewLineupMenu.SetCMPortrait3(CrewMember3.Skin.GetPortrait());
+        }
     }
 
     /// <summary>
@@ -38,6 +63,11 @@ public class CrewCreationMenu : MonoBehaviour
     public void StartGame()
     {
 
+    }
+
+    public void SetSelectedCrewMember(SelectedCrewMember to)
+    {
+        selectedCrewMember = to;
     }
 
     private void Start()

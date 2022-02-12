@@ -51,7 +51,7 @@ namespace Assets.Scripts.Providers
             ISkin selectedSkin = ApplySkin(skinName, crewMemberGameObject);
             IMovementHandler movementHandler = CreateMovementHandler(crewMemberGameObject);
 
-            return new CrewMember(movementHandler, selectedSkin, configuration);
+            return new CrewMember(crewMemberGameObject, movementHandler, selectedSkin, configuration);
         }
 
         /// <summary>

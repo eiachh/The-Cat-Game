@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Characters
 {
-    public interface ICrewMember
+    public interface ICrewMember : IDisposable
     {
         ISkin Skin { get; set; }
 
