@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Scripts.Characters
+namespace Assets.Scripts.Characters.Info
 {
     public class CharacterSkills
     {

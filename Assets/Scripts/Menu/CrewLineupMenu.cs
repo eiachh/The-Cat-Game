@@ -17,23 +17,32 @@ public class CrewLineupMenu : MonoBehaviour
     private Image crewMemberPortrait2;
     private Image crewMemberPortrait3;
 
-    public void SetCMPortrait1(Sprite sprite)
+    private bool Initialized;
+    private SelectedCrewMember selectedCrewMember;
+    public void SetCorrespondingPortrait(Sprite sprite, SelectedCrewMember selected)
     {
-        crewMemberPortrait1.sprite = sprite;
+        selectedCrewMember = selected;
+        var portrait = GetSelectedPortrait();
+        if (portrait == null)
+            Init();
+
+        portrait = GetSelectedPortrait();
+        portrait.sprite = sprite;
     }
 
-    public void SetCMPortrait2(Sprite sprite)
+    public void DeselectMemberSpots()
     {
-        crewMemberPortrait2.sprite = sprite;
+        crewMemberSpot1.Deselect();
+        crewMemberSpot2.Deselect();
+        crewMemberSpot3.Deselect();
     }
-
-    public void SetCMPortrait3(Sprite sprite)
+    private void Init()
     {
-        crewMemberPortrait3.sprite = sprite;
-    }
+        if (Initialized)
+            return;
 
-    private void Start()
-    {
+        Initialized = true;
+
         crewMemberSpot1 = CrewMemberObject1.GetComponent<CrewMemberSpot>();
         crewMemberPortrait1 = CrewMemberObject1.GetComponent<Image>();
         crewMemberSpot1.crewMemberId = SelectedCrewMember.CrewMember1;
@@ -47,4 +56,17 @@ public class CrewLineupMenu : MonoBehaviour
         crewMemberPortrait3 = CrewMemberObject3.GetComponent<Image>();
         crewMemberSpot3.crewMemberId = SelectedCrewMember.CrewMember3;
     }
+    private void Start()
+    {
+        Init();
+    }
+
+    private Image GetSelectedPortrait() =>
+        selectedCrewMember switch
+        {
+            SelectedCrewMember.CrewMember1 => crewMemberPortrait1,
+            SelectedCrewMember.CrewMember2 => crewMemberPortrait2,
+            SelectedCrewMember.CrewMember3 => crewMemberPortrait3,
+            _ => crewMemberPortrait1,
+        };
 }

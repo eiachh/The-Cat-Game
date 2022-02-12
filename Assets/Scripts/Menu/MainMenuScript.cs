@@ -5,11 +5,13 @@ using UnityEngine;
 public class MainMenuScript : MonoBehaviour
 {
     public GameObject MainMenuHolder;
-    public GameObject CrewCreationMenu;
+    public GameObject CrewCreationMenuGameObject;
+
+    private CrewCreationMenu crewCreationMenu;
     public void StartGame()
     {
         MainMenuHolder.SetActive(false);
-        CrewCreationMenu.SetActive(true);
+        crewCreationMenu.ShowMenu();
     }
 
     public void LoadGame()
@@ -25,5 +27,10 @@ public class MainMenuScript : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    private void Start()
+    {
+        crewCreationMenu = CrewCreationMenuGameObject.GetComponent<CrewCreationMenu>();
     }
 }

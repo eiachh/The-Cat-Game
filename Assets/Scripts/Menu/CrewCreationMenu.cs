@@ -3,6 +3,7 @@ using Assets.Scripts.Characters;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum SelectedCrewMember
 {
@@ -16,13 +17,19 @@ public class CrewCreationMenu : MonoBehaviour
     public GameObject CrewCreationMenuObject;
     public GameObject CrewLineupMenuGameObject;
 
+    public CharacterConfigurationDisplayer charConfigurationDisplayer;
+
+    public Sprite NotSelectedIndicator;
+    public Sprite SelectedIndicator;
+
     private ICrewMember CrewMember1;
     private ICrewMember CrewMember2;
     private ICrewMember CrewMember3;
 
     private SelectedCrewMember selectedCrewMember = SelectedCrewMember.CrewMember1;
 
-    private CrewLineupMenu CrewLineupMenu;
+    private CrewLineupMenu crewLineupMenu;
+    
     /// <summary>
     /// Goes back to the main menu.
     /// </summary>
@@ -37,24 +44,10 @@ public class CrewCreationMenu : MonoBehaviour
     /// </summary>
     public void RerollSelectedMember()
     {
-        if(selectedCrewMember == SelectedCrewMember.CrewMember1)
-        {
-            CrewMember1.Dispose();
-            CrewMember1 = Factory.Instance.CreateRandomCrewMember();
-            CrewLineupMenu.SetCMPortrait1(CrewMember1.Skin.GetPortrait());
-        }
-        else if (selectedCrewMember == SelectedCrewMember.CrewMember2)
-        {
-            CrewMember2.Dispose();
-            CrewMember2 = Factory.Instance.CreateRandomCrewMember();
-            CrewLineupMenu.SetCMPortrait2(CrewMember2.Skin.GetPortrait());
-        }
-        if (selectedCrewMember == SelectedCrewMember.CrewMember3)
-        {
-            CrewMember3.Dispose();
-            CrewMember3 = Factory.Instance.CreateRandomCrewMember();
-            CrewLineupMenu.SetCMPortrait3(CrewMember3.Skin.GetPortrait());
-        }
+        var selectedMember = GetSelectedMember();
+        selectedMember.Dispose();
+        selectedMember = Factory.Instance.CreateRandomCrewMember();
+        crewLineupMenu.SetCorrespondingPortrait(CrewMember1.Skin.GetPortrait(),selectedCrewMember);
     }
 
     /// <summary>
@@ -63,23 +56,48 @@ public class CrewCreationMenu : MonoBehaviour
     public void StartGame()
     {
 
+        SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
     }
 
     public void SetSelectedCrewMember(SelectedCrewMember to)
     {
         selectedCrewMember = to;
+        charConfigurationDisplayer.DisplayCharacterConfiguration(GetSelectedMember().CharacterConfiguration);
     }
 
-    private void Start()
+    /// <summary>
+    /// Deselects all the crewmembers from the <see cref="crewLineupMenu"/>
+    /// </summary>
+    public void DeselectMemberSpots()
+    {
+        crewLineupMenu.DeselectMemberSpots();
+    }
+
+    public void ShowMenu()
+    {
+        CrewCreationMenuObject.SetActive(true);
+        FillMenu();
+    }
+
+    private void FillMenu()
     {
         CrewMember1 = Factory.Instance.CreateRandomCrewMember();
         CrewMember2 = Factory.Instance.CreateRandomCrewMember();
         CrewMember3 = Factory.Instance.CreateRandomCrewMember();
 
-        CrewLineupMenu = CrewLineupMenuGameObject.GetComponent<CrewLineupMenu>();
+        crewLineupMenu = CrewLineupMenuGameObject.GetComponent<CrewLineupMenu>();
 
-        CrewLineupMenu.SetCMPortrait1(CrewMember1.Skin.GetPortrait());
-        CrewLineupMenu.SetCMPortrait2(CrewMember2.Skin.GetPortrait());
-        CrewLineupMenu.SetCMPortrait3(CrewMember3.Skin.GetPortrait());
+        crewLineupMenu.SetCorrespondingPortrait(CrewMember1.Skin.GetPortrait(), SelectedCrewMember.CrewMember1);
+        crewLineupMenu.SetCorrespondingPortrait(CrewMember2.Skin.GetPortrait(), SelectedCrewMember.CrewMember2);
+        crewLineupMenu.SetCorrespondingPortrait(CrewMember3.Skin.GetPortrait(), SelectedCrewMember.CrewMember3);
     }
+
+    private ICrewMember GetSelectedMember() =>
+        selectedCrewMember switch
+        {
+            SelectedCrewMember.CrewMember1 => CrewMember1,
+            SelectedCrewMember.CrewMember2 => CrewMember2,
+            SelectedCrewMember.CrewMember3 => CrewMember3,
+            _ => CrewMember1,
+        };
 }

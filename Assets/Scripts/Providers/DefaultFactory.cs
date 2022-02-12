@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEditor.Animations;
 using UnityEngine;
+using Assets.Scripts.Characters.Info;
 
 namespace Assets.Scripts.Providers
 {
@@ -51,7 +52,9 @@ namespace Assets.Scripts.Providers
             ISkin selectedSkin = ApplySkin(skinName, crewMemberGameObject);
             IMovementHandler movementHandler = CreateMovementHandler(crewMemberGameObject);
 
-            return new CrewMember(crewMemberGameObject, movementHandler, selectedSkin, configuration);
+            var createdMember = new CrewMember(crewMemberGameObject, movementHandler, selectedSkin, configuration);
+            crewMemberGameObject.SetActive(false);
+            return createdMember;
         }
 
         /// <summary>
@@ -86,8 +89,7 @@ namespace Assets.Scripts.Providers
             var selectedSkinNum = UnityEngine.Random.Range(0, skinAmount);
             var selectedName = skinNameList[selectedSkinNum];
 
-            CharacterConfiguration charConfiguration = new CharacterConfiguration();
-            charConfiguration.Name = "CreateRandomCrewMember";
+            CharacterConfiguration charConfiguration = CharacterConfiguration.CreateRandomConfiguration();
             return CreateCrewMember(charConfiguration, selectedName);
         }
 

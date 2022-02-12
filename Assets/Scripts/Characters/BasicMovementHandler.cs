@@ -15,6 +15,7 @@ namespace Assets.Scripts.Characters
         private IMapPosition mapPosition; 
 
         private Vector3 destination = new Vector3();
+        private bool isMoving;
 
         /// <summary>
         /// Sets the animation adapter.
@@ -28,6 +29,7 @@ namespace Assets.Scripts.Characters
 
         public void MoveHorizontal(int toMapX)
         {
+            isMoving = true;
             destination = new Vector3(toMapX, 0, 0);
             if(LocalToDestinationVector3().x < 0)
             {
@@ -40,6 +42,7 @@ namespace Assets.Scripts.Characters
 
         public void MoveVertical(int toMapY)
         {
+            isMoving = true;
             destination = new Vector3(0, toMapY, 0);
             if (LocalToDestinationVector3().y < 0)
             {
@@ -58,6 +61,7 @@ namespace Assets.Scripts.Characters
         private void StopAndSnapToDestination()
         {
             transform.position = destination;
+            isMoving = false;
             Stop();
         }
 
@@ -69,6 +73,9 @@ namespace Assets.Scripts.Characters
 
         void FixedUpdate()
         {
+            if (!isMoving)
+                return;
+
             Vector3 localToDest = LocalToDestinationVector3();
             Vector3 normalizedDirection = localToDest.normalized;
 

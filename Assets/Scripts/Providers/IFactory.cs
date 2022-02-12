@@ -9,6 +9,7 @@ using UnityEngine;
 using Assets.Scripts.Characters;
 using Assets.Scripts.Map;
 using UnityEngine.UIElements;
+using Assets.Scripts.Characters.Info;
 
 namespace Assets.Scripts.Providers
 {

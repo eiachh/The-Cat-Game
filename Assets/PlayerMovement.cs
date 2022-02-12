@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
         //BasicMovementHandler aasdsad = new BasicMovementHandler();
         //GameObject tester = new GameObject("PlayerMovement_testerName");
         //tester.AddComponent<BasicMovementHandler>();
-        crewMember1 = Factory.Instance.CreateRandomCrewMember();
+        //crewMember1 = Factory.Instance.CreateRandomCrewMember();
         //crewMember1 = Factory.Instance.CreateCrewMember(new CharacterConfiguration { Name = "TestCrewMember" }, "SpottySus");
         
     }
