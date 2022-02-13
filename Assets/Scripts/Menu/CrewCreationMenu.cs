@@ -1,5 +1,6 @@
 using Assets.Scripts;
 using Assets.Scripts.Characters;
+using Assets.Scripts.Map;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +30,9 @@ public class CrewCreationMenu : MonoBehaviour
     private SelectedCrewMember selectedCrewMember = SelectedCrewMember.CrewMember1;
 
     private CrewLineupMenu crewLineupMenu;
-    
+
+    private string sceneNameToLoad = "SampleScene";
+
     /// <summary>
     /// Goes back to the main menu.
     /// </summary>
@@ -55,8 +58,11 @@ public class CrewCreationMenu : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-
-        SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        //GameObject crewGameObject = new GameObject("CrewGameObject");
+        //CrewMember1.
+        var crew = Factory.Instance.CreateCrew(new[] { CrewMember1, CrewMember2, CrewMember3 });
+        //MapLoadManager loadManager = new MapLoadManager(crew, sceneNameToLoad);
+        SceneManager.LoadScene(sceneNameToLoad, LoadSceneMode.Single);
     }
 
     public void SetSelectedCrewMember(SelectedCrewMember to)

@@ -20,15 +20,7 @@ public class PlayerMovement : MonoBehaviour
     ICrewMember crewMember1;
     void Start()
     {
-        SpawnableArea testArea = new SpawnableArea(Factory.Instance.CreateMapPosition(-1,1), Factory.Instance.CreateMapPosition(1, -1));
-        testArea.GetRandomSpawnableLocation();
 
-        //BasicMovementHandler aasdsad = new BasicMovementHandler();
-        //GameObject tester = new GameObject("PlayerMovement_testerName");
-        //tester.AddComponent<BasicMovementHandler>();
-        //crewMember1 = Factory.Instance.CreateRandomCrewMember();
-        //crewMember1 = Factory.Instance.CreateCrewMember(new CharacterConfiguration { Name = "TestCrewMember" }, "SpottySus");
-        
     }
 
 
@@ -36,13 +28,11 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         ProcessInputs();
-        //transform.Translate(new Vector3(BaseConstant * Time.deltaTime * speed,0,0));
     }
 
     private void FixedUpdate()
     {
         Move();
-        //transform.Translate(new Vector3(1 * Time.deltaTime * speed, 0, 0));
     }
 
     void ProcessInputs()

@@ -6,11 +6,20 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Map
 {
+    public enum SpawnAreaType
+    {
+        Default,
+        PlayerDefined,
+    }
     /// <summary>
     /// Defines a spawnable area as a cube.
     /// </summary>
     public interface ISpawnableArea
     {
+        /// <summary>
+        /// Type of the spawn area.
+        /// </summary>
+        SpawnAreaType SpawnAreaType { get; }
         /// <summary>
         /// Set the top left of the spawnable area(cube).
         /// </summary>

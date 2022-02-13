@@ -10,10 +10,12 @@ using Assets.Scripts.Characters.Info;
 
 namespace Assets.Scripts.Characters
 {
-    class CrewMember : ICrewMember
+    public class CrewMember : ICrewMember
     {
         public ISkin Skin { get; set; }
         public CharacterConfiguration CharacterConfiguration => characterConfiguration;
+
+        public GameObject SelfGameObject => selfGameObject;
 
         private IMovementHandler movementHandler;
         private CharacterConfiguration characterConfiguration;
@@ -21,6 +23,8 @@ namespace Assets.Scripts.Characters
 
         public CrewMember(GameObject selfGameObject, IMovementHandler movementHandler, ISkin skin, CharacterConfiguration configuration)
         {
+            UnityEngine.Object.DontDestroyOnLoad(selfGameObject);
+
             this.movementHandler = movementHandler;
             this.characterConfiguration = configuration;
             this.Skin = skin;
@@ -40,6 +44,11 @@ namespace Assets.Scripts.Characters
         public void Dispose()
         {
             UnityEngine.Object.DestroyImmediate(selfGameObject);
+        }
+
+        public void SetActive(bool active)
+        {
+            selfGameObject.SetActive(active);
         }
     }
 }

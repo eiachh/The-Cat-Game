@@ -18,6 +18,8 @@ namespace Assets.Scripts.Providers
     public class DefaultFactory : IFactory
     {
         private ISkinProvider skinProvider;
+        private IMapManager mainMapManager;
+
 
         /// <summary>
         /// <inheritdoc/>
@@ -29,17 +31,14 @@ namespace Assets.Scripts.Providers
         /// </summary>
         public ISkinProvider SkinProvider => skinProvider;
 
+        public IMapManager MainMapManager => mainMapManager;
+
         public DefaultFactory()
         {
             skinProvider = new BasicSkinProvider();
+            mainMapManager = new MapManager();
         }
 
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        /// <param name="defaultSprite"><inheritdoc/></param>
-        /// <param name="animatorController"><inheritdoc/></param>
-        /// <returns><inheritdoc/></returns>
         public ISkin CreateSkin(Sprite defaultSprite, Sprite portrait, AnimatorController animatorController)
         {
             return new BasicSkinUtility(defaultSprite, portrait, animatorController);
@@ -57,12 +56,6 @@ namespace Assets.Scripts.Providers
             return createdMember;
         }
 
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        /// <param name="animator"></param>
-        /// <param name="animatorAdapterType"></param>
-        /// <returns></returns>
         public IMovementAnimatorAdapter CreateMovementAnimatorAdapter(Animator animator, AnimatorAdapterType animatorAdapterType) =>
             animatorAdapterType switch
             {
@@ -78,10 +71,6 @@ namespace Assets.Scripts.Providers
             return movementHandler;
         }
 
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        /// <returns></returns>
         public ICrewMember CreateRandomCrewMember()
         {
             var skinNameList = skinProvider.GetSkinNames();
@@ -93,7 +82,22 @@ namespace Assets.Scripts.Providers
             return CreateCrewMember(charConfiguration, selectedName);
         }
 
+        public ICrew CreateCrew(IEnumerable<ICrewMember> members)
+        {
+            Crew crew = new Crew();
+            foreach (var member in members)
+            {
+                crew.AddMember(member);
+            }
 
+            return crew;
+        }
+
+        /// <summary>
+        /// Create a movement handler for the given game object.
+        /// </summary>
+        /// <param name="crewMemberGameObject">The object of the movement handler.</param>
+        /// <returns>A movement handler.</returns>
         private IMovementHandler CreateMovementHandler(GameObject crewMemberGameObject)
         {
             var crewMemberAnimator = crewMemberGameObject.GetComponent<Animator>();

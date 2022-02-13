@@ -11,11 +11,16 @@ namespace Assets.Scripts.Map
         public IMapPosition TopLeft { get; set; }
         public IMapPosition BotRight { get; set; }
 
+        public SpawnAreaType SpawnAreaType => spawnAreaType;
+
         private List<IMapPosition> spawnablePosition = new List<IMapPosition>();
-        public SpawnableArea(IMapPosition topLeft, IMapPosition botRight)
+        private SpawnAreaType spawnAreaType;
+
+        public SpawnableArea(IMapPosition topLeft, IMapPosition botRight, SpawnAreaType type)
         {
             TopLeft = topLeft;
             BotRight = botRight;
+            spawnAreaType = type;
 
             spawnablePosition.AddRange(MapHelper.GetAllPositionsInCube(topLeft, botRight));
         }

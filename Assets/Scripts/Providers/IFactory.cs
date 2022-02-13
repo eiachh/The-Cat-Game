@@ -21,6 +21,11 @@ namespace Assets.Scripts.Providers
         ILogger Logger { get; }
 
         /// <summary>
+        /// The map manager of the main map.
+        /// </summary>
+        IMapManager MainMapManager { get; }
+
+        /// <summary>
         /// Gets the skin provider.
         /// </summary>
         ISkinProvider SkinProvider { get; }
@@ -33,6 +38,12 @@ namespace Assets.Scripts.Providers
         /// <returns>An ISkin.</returns>
         ISkin CreateSkin(Sprite defaultSprite, Sprite portrait, AnimatorController animatorController);
 
+        /// <summary>
+        /// Create a crewmember with the given configuration and name.
+        /// </summary>
+        /// <param name="configuration">The character configuration.</param>
+        /// <param name="skinName">The desired name of the crew member.</param>
+        /// <returns>A crew member.</returns>
         ICrewMember CreateCrewMember(CharacterConfiguration configuration, string skinName);
 
         /// <summary>
@@ -40,6 +51,13 @@ namespace Assets.Scripts.Providers
         /// </summary>
         /// <returns></returns>
         ICrewMember CreateRandomCrewMember();
+
+        /// <summary>
+        /// Create a crew with the given members.
+        /// </summary>
+        /// <param name="members">The crew members.</param>
+        /// <returns>The crew object.</returns>
+        ICrew CreateCrew(IEnumerable<ICrewMember> members);
         /// <summary>
         /// Returns a movement animator adapter for the given adapter type.
         /// </summary>
@@ -69,5 +87,7 @@ namespace Assets.Scripts.Providers
         /// <param name="transform">The corresponding transform.</param>
         /// <returns>A map position.</returns>
         IMapPosition CreateMapPosition(Transform transform);
+
+
     }
 }

@@ -11,11 +11,14 @@ namespace Assets.Scripts.Characters
 {
     public interface ICrewMember : IDisposable
     {
+        GameObject SelfGameObject { get; }
         ISkin Skin { get; set; }
 
-         CharacterConfiguration CharacterConfiguration { get; }
+        CharacterConfiguration CharacterConfiguration { get; }
 
         void MoveHorizontal(int toMapX);
         void MoveVertical(int toMapY);
+
+        void SetActive(bool active);
     }
 }

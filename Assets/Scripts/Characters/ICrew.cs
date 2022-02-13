@@ -8,5 +8,8 @@ namespace Assets.Scripts.Characters
 {
     public interface ICrew
     {
+        IEnumerable<ICrewMember> Members();
+        void AddMember(ICrewMember member);
+        void RemoveMember(ICrewMember member);
     }
 }
