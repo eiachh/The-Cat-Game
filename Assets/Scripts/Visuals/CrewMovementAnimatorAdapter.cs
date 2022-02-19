@@ -16,34 +16,31 @@ namespace Assets.Scripts.Visuals
         {
             this.animator = animator;
         }
-        public void MoveDown()
+        public virtual void MoveDown()
         {
             animator.SetInteger("Horizontal", 0);
             animator.SetInteger("Vertical", 1);
         }
 
-        public void MoveLeft()
+        public virtual void MoveLeft()
         {
             animator.SetInteger("Horizontal", -1);
             animator.SetInteger("Vertical", 0);
         }
 
-        public void MoveRight()
+        public virtual void MoveRight()
         {
             animator.SetInteger("Horizontal", 1);
             animator.SetInteger("Vertical", 0);
         }
 
-        public void MoveUp()
+        public virtual void MoveUp()
         {
             animator.SetInteger("Horizontal", 0);
             animator.SetInteger("Vertical", -1);
         }
 
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public void Idle()
+        public virtual void Idle()
         {
             animator.SetInteger("Horizontal", 0);
             animator.SetInteger("Vertical", 0);

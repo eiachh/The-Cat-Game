@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Map;
+using Assets.Scripts.Providers;
 using Assets.Scripts.Visuals;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,7 @@
 using Assets.Scripts;
 using Assets.Scripts.Characters;
 using Assets.Scripts.Map;
+using Assets.Scripts.Providers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
