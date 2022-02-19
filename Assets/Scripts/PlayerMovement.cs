@@ -42,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
 
         moveDirection = new Vector2(moveX, moveY).normalized;
 
-
         if (Input.GetKey(KeyCode.I))
         {
             crewMember1.MoveVertical(5);
