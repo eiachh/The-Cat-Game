@@ -87,7 +87,5 @@ namespace Assets.Scripts.Providers
         /// <param name="transform">The corresponding transform.</param>
         /// <returns>A map position.</returns>
         IMapPosition CreateMapPosition(Transform transform);
-
-
     }
 }

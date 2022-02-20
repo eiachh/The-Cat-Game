@@ -37,8 +37,12 @@ namespace Assets.Scripts.Visuals
 
         public void Dispose()
         {
-            UnityEngine.Object.Destroy(defaultSprite);
-            UnityEngine.Object.Destroy(animatorOverrideController);
+            defaultSprite = null;
+            portrait = null;
+            animatorOverrideController = null;
+
+            UnityEngine.Object.DestroyImmediate(defaultSprite);
+            UnityEngine.Object.DestroyImmediate(animatorOverrideController);
         }
 
         /// <summary>

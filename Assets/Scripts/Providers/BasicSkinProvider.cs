@@ -51,6 +51,29 @@ namespace Assets.Scripts.Providers
             return retSkin;
         }
 
+        public void LoadUnmanagedSkins()
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(CharacterSkinsFolderPath);
+            foreach (var dir in dirInfo.GetDirectories())
+            {
+                LoadSkin(dir);
+            }
+        }
+
+        public void Dispose()
+        {
+            IsSkinsLoaded = false;
+
+            SkinNames.Clear();
+            foreach (var skin in skinDictionary.Values)
+            {
+                skin.Dispose();
+            }
+            skinDictionary.Clear();
+
+            UnityEngine.Object.DestroyImmediate(notFoundSprite);
+        }
+
         /// <summary>
         /// Loads all the skins from <see cref="CharacterSkinsFolderPath"/>.
         /// </summary>
@@ -77,6 +100,9 @@ namespace Assets.Scripts.Providers
         /// <param name="dir"></param>
         private void LoadSkin(DirectoryInfo dir)
         {
+            if (IsManagedSkin(dir.Name))
+                return;
+
             var defaultSkin = GetDefaultSkin(dir);
             var portrait = GetPortrait(dir);
             var animatorController = GetAnimatorController(dir);
@@ -89,6 +115,11 @@ namespace Assets.Scripts.Providers
             var skin = Factory.Instance.CreateSkin(defaultSkin, portrait, animatorController);
             skinDictionary.Add(dir.Name, skin);
             SkinNames.Add(dir.Name);
+        }
+
+        private bool IsManagedSkin(string name)
+        {
+            return SkinNames.Any(elem => elem == name);
         }
 
         /// <summary>

@@ -17,21 +17,12 @@ namespace Assets.Scripts.Providers
     /// </summary>
     public class DefaultFactory : IFactory
     {
+        public ILogger Logger => Debug.unityLogger;
+        public ISkinProvider SkinProvider => skinProvider;
+        public IMapManager MainMapManager => mainMapManager;
+
         private ISkinProvider skinProvider;
         private IMapManager mainMapManager;
-
-
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public ILogger Logger => Debug.unityLogger;
-
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public ISkinProvider SkinProvider => skinProvider;
-
-        public IMapManager MainMapManager => mainMapManager;
 
         public DefaultFactory()
         {
@@ -93,6 +84,16 @@ namespace Assets.Scripts.Providers
             return crew;
         }
 
+        public IMapPosition CreateMapPosition(float x, float y)
+        {
+            return new TheoreticalMapPosition(x, y);
+        }
+
+        public IMapPosition CreateMapPosition(Transform transform)
+        {
+            return new TransformBasedMapPosition(transform);
+        }
+
         /// <summary>
         /// Create a movement handler for the given game object.
         /// </summary>
@@ -117,16 +118,6 @@ namespace Assets.Scripts.Providers
             selectedSkin.ApplySkin(crewMemberGameObject);
             selectedSkin.SetRenderLayer(crewMemberGameObject, RenderLayerCollection.Player);
             return selectedSkin;
-        }
-
-        public IMapPosition CreateMapPosition(float x, float y)
-        {
-            return new TheoreticalMapPosition(x, y);
-        }
-
-        public IMapPosition CreateMapPosition(Transform transform)
-        {
-            return new TransformBasedMapPosition(transform);
         }
     }
 }

@@ -11,9 +11,10 @@ public class BasicSkinProviderTest
     private string FakeSkinName = "MockedTestSkin";
 
     [SetUp]
-    public void CreateFakeSkin()
+    public void CreateFakeSkinSetup()
     {
         CreateFakeSkinFolder();
+        Factory.Instance.SkinProvider.LoadUnmanagedSkins();
     }
 
     [TearDown]
@@ -51,6 +52,34 @@ public class BasicSkinProviderTest
     }
     
     /// <summary>
+    /// Checks if the LoadUnmanagedSkins function actually loads the newly inserted skin.
+    /// </summary>
+    [Test]
+    public void LoadUnmanagedFindsNewSkin([Values("RandomSkinToFind","AnotherSkinToFind", "IDKHonestly")]string skinNames)
+    {
+        var skinProvider = Factory.Instance.SkinProvider;
+
+        CreateFakeSkinFolder(skinNames);
+        skinProvider.LoadUnmanagedSkins();
+        Assert.IsNotNull(skinProvider.GetSkin(skinNames));
+        RemoveFakeSkinFolder(skinNames);
+    }
+    /// <summary>
+    /// Tests if the LoadUnmanaged function is not loading the already existing skins again.
+    /// </summary>
+    [Test]
+    public void LoadUnmanagedIsNotDuplicating()
+    {
+        var skinProvider = Factory.Instance.SkinProvider;
+
+        var skinAmount = skinProvider.GetSkinNames().Count;
+        skinProvider.LoadUnmanagedSkins();
+        var skinAmountAfter = skinProvider.GetSkinNames().Count;
+
+        Assert.AreEqual(skinAmount, skinAmountAfter);
+    }
+    
+    /// <summary>
     /// Creates the fake skin mock folder which registers the skin.
     /// </summary>
     private void CreateFakeSkinFolder()
@@ -66,6 +95,24 @@ public class BasicSkinProviderTest
     {
         if (Directory.Exists($"{ SkinsFolderPath}/{ FakeSkinName}"))
             Directory.Delete($"{SkinsFolderPath}/{FakeSkinName}",true);
+    }
+
+    /// <summary>
+    /// Creates the fake skin mock folder which registers the skin.
+    /// </summary>
+    private void CreateFakeSkinFolder(string name)
+    {
+        if (!Directory.Exists($"{ SkinsFolderPath}/{ name}"))
+            Directory.CreateDirectory($"{SkinsFolderPath}/{name}");
+    }
+
+    /// <summary>
+    /// Creates the fake skin mock folder which registers the skin.
+    /// </summary>
+    private void RemoveFakeSkinFolder(string name)
+    {
+        if (Directory.Exists($"{ SkinsFolderPath}/{ name}"))
+            Directory.Delete($"{SkinsFolderPath}/{name}", true);
     }
 }
 

@@ -1,4 +1,5 @@
 using Assets.Scripts.Visuals;
+using System;
 using System.Collections.Generic;
 
 namespace Assets.Scripts.Providers
@@ -6,7 +7,7 @@ namespace Assets.Scripts.Providers
     /// <summary>
     /// Implements all the skin retrival functions.
     /// </summary>
-    public interface ISkinProvider
+    public interface ISkinProvider : IDisposable
     {
         /// <summary>
         /// Get a skin with the given name.
@@ -20,5 +21,10 @@ namespace Assets.Scripts.Providers
         /// </summary>
         /// <returns>Returns the names.</returns>
         IList<string> GetSkinNames();
+
+        /// <summary>
+        /// Checks for not yet managed skins and loads them;
+        /// </summary>
+        void LoadUnmanagedSkins();
     }
 }
